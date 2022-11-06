@@ -22,9 +22,9 @@ def print_board(board):
     for y in range(len(board)):
         for x in range(len(board[y])):
             print(board[y][x], end=" ")
-            if x < 2:
+            if x < (len(board) - 1):
                 print("|", end=" ")
-        if y < 2:
+        if y < (len(board) - 1):
             print("\n- + - + -\n")
     print("\n")
 
@@ -56,13 +56,19 @@ def is_game_won(board):
         if all_equal(board[y]):
             player = board[y][0]
             return True, player
-        else:
-            return False, None
-#     Check Columns
-#     for x in range(len(board)):
-#
-#         for y in range(len(board)):
-#             if all_equal()
+    # Check Columns
+    board_t = list(zip(*board))
+    for y in range(len(board)):
+        if all_equal(board_t[y]):
+            player = board[y][0]
+            return True, player
+
+    if (board[0][0] == board[1][1] and board[0][0] == board[2][2]) \
+            or (board[0][2] == board[1][1] and board[0][2] == board[2][0]):
+        player = board[1][1]
+        return True, player
+
+    return False, None
 
 
 
@@ -91,7 +97,6 @@ def main():
             print_board(board)
 
 
-
-
 if __name__ == "__main__":
     main()
+
